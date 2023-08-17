@@ -1,0 +1,40 @@
+<?php
+	$new_loop = new WP_Query( array(
+	'post_type' => 'post',
+	'category_name'=> 'activity',
+		'posts_per_page' => 6 // put number of posts that you'd like to display 
+		//'offset'=>1 // put number of first posts that you'd like to not to display
+	) );
+?>
+
+	<?php if ( $new_loop->have_posts() ) : ?>
+	<?php while ( $new_loop->have_posts() ) : $new_loop->the_post(); ?>
+	<div class="item">
+		<h3><?php the_title(); ?></h3>
+		
+		<div class="post-pic">
+			<?php 
+			if ( has_post_thumbnail() ){?>
+			<img alt="<?php the_title(); ?>" src="<?php the_post_thumbnail_url( $size ); ?> " class="block-img"/>
+			<?php } ?>
+		</div>
+
+		<div class="event-date">
+			<Span><i class="fa fa-calendar-o" aria-hidden="true"></i>
+			<?php echo get_post_meta(get_the_ID(), 'Date', TRUE); ?></span>
+			<Span class="evt-pls"><i class="fa fa-map-marker" aria-hidden="true"></i>
+				<?php echo get_post_meta(get_the_ID(), 'Place', TRUE); ?></span>
+				
+		</div>
+		<div class="event"><?php the_excerpt();?></div>
+		<div class="right fullbtn"><a href="<?php the_permalink();?>"class="right butt">read more</a></div>
+    </div>
+	
+<?php endwhile;?>
+<?php else: ?>
+<?php endif; ?>
+<?php wp_reset_query(); ?>
+			
+			
+			
+             

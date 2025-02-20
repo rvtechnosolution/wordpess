@@ -1,0 +1,7 @@
+$args = array(
+    'numberposts' => 5,
+    'offset' => 0,
+    'category' => 7,
+    'post__not_in' => array( $post->ID )
+);
+$myposts2 = get_posts($args);

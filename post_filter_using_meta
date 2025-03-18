@@ -1,0 +1,172 @@
+<?php /* Template Name: template telant */ 
+get_header();
+
+?>
+
+
+<?php
+if($_GET['_talent_location'] || $_GET['_talent_category'] || $_GET['_talent_type'] ){
+	
+   $location = $_GET['_talent_location'];
+   $category = $_GET['_talent_category'];
+   $type = $_GET['_talent_type'];
+?>
+
+
+
+
+
+
+<div class="custom-container">
+    <?php
+    while (have_posts()) : the_post();
+        the_content(); // This will display Elementor content
+    endwhile;
+    ?>
+</div>
+<div class="container">
+ <?php
+	$new_loop = new WP_Query( array(
+	'post_type' => 'talent', 
+	 'posts_per_page' => -1, // put number of posts that you'd like to display 
+	 
+	 'meta_query' => array(
+        'relation' => 'AND',
+        array(
+            'key' => 'talent_location',
+            'value' => $location,
+            'compare' => 'LIKE',
+        ),
+		 array(
+            'key' => 'talent_category',
+            'value' => $category,
+            'compare' => 'LIKE',
+        ),
+		 array(
+            'key' => 'talent_type',
+            'value' => $type,
+            'compare' => 'LIKE',
+        ),
+		
+		),
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+		 
+	));
+?>
+<div class="awsm-job-wrap"> 
+<?php if ( $new_loop->have_posts() ) : ?>
+	<?php while ( $new_loop->have_posts() ) : $new_loop->the_post(); ?>
+
+ 
+
+<div class="awsm-job-listing-item awsm-grid-item" id="awsm-grid-item-">		
+<a href="<?php the_permalink();?>" class="awsm-job-item">			
+<div class="awsm-grid-left-col">
+<h2 class="awsm-job-post-title"><?php the_title(); ?></h2>
+</div>
+
+<div class="awsm-grid-right-col">
+	<div class="awsm-job-specification-wrapper">
+		<div class="awsm-job-specification-item awsm-job-specification-job-category"><i class="awsm-job-icon-bar-chart"></i><span class="awsm-job-specification-term"><?php echo get_field( "talent_category" ); ?></span> </div>
+		
+		<div class="awsm-job-specification-item awsm-job-specification-job-type"><i class="awsm-job-icon-briefcase"></i><span class="awsm-job-specification-term"><?php echo get_field( "talent_type" ); ?></span> </div>
+		
+		<div class="awsm-job-specification-item awsm-job-specification-job-location"><i class="awsm-job-icon-map-marker"></i><span class="awsm-job-specification-term"><?php echo get_field( "talent_location" ); ?></span> </div>
+	</div>
+<div class="awsm-job-more-container"><span class="awsm-job-more">More Details <span></span></span></div>			
+</div>
+</a>
+</div>
+
+<?php endwhile;?>
+<?php else: ?>
+<?php endif; ?>
+<?php wp_reset_query(); ?>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?	
+	
+	
+}
+else{
+
+?>
+
+
+
+
+<div class="custom-container">
+    <?php
+    while (have_posts()) : the_post();
+        the_content(); // This will display Elementor content
+    endwhile;
+    ?>
+</div>
+<div class="container">
+ <?php
+	$new_loop = new WP_Query( array(
+	'post_type' => 'talent', 
+	 'posts_per_page' => -1 // put number of posts that you'd like to display 
+		 
+	));
+?>
+<div class="awsm-job-wrap"> 
+<?php if ( $new_loop->have_posts() ) : ?>
+	<?php while ( $new_loop->have_posts() ) : $new_loop->the_post(); ?>
+
+ 
+
+<div class="awsm-job-listing-item awsm-grid-item" id="awsm-grid-item-">		
+<a href="<?php the_permalink();?>" class="awsm-job-item">			
+<div class="awsm-grid-left-col">
+<h2 class="awsm-job-post-title"><?php the_title(); ?></h2>
+</div>
+
+<div class="awsm-grid-right-col">
+	<div class="awsm-job-specification-wrapper">
+		<div class="awsm-job-specification-item awsm-job-specification-job-category"><i class="awsm-job-icon-bar-chart"></i><span class="awsm-job-specification-term"><?php echo get_field( "talent_category" ); ?></span> </div>
+		
+		<div class="awsm-job-specification-item awsm-job-specification-job-type"><i class="awsm-job-icon-briefcase"></i><span class="awsm-job-specification-term"><?php echo get_field( "talent_type" ); ?></span> </div>
+		
+		<div class="awsm-job-specification-item awsm-job-specification-job-location"><i class="awsm-job-icon-map-marker"></i><span class="awsm-job-specification-term"><?php echo get_field( "talent_location" ); ?></span> </div>
+	</div>
+<div class="awsm-job-more-container"><span class="awsm-job-more">More Details <span></span></span></div>			
+</div>
+</a>
+</div>
+
+<?php endwhile;?>
+<?php else: ?>
+<?php endif; ?>
+<?php wp_reset_query(); ?>
+</div>
+</div>
+
+ 
+  
+ 
+ 
+<?php
+}
+get_footer();
+?>
